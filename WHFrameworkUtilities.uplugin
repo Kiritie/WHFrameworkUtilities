@@ -1,0 +1,39 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "WHFrameworkUtilities",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "Wuhao",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "WHFrameworkUtilities",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "WHFramework",
+			"Enabled": true
+		},
+		{
+			"Name": "DBTween",
+			"Enabled": true
+		},
+		{
+			"Name": "UltraDynamicSky",
+			"Enabled": true
+		}
+	],
+	"EditorCustomVirtualPath": "WHFramework"
+}
