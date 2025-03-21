@@ -27,7 +27,9 @@ public class WHFrameworkUtilities : ModuleRules
 				"SlateCore",
 				"CommonUI",
 				"GameplayTags",
+				"EnhancedInput",
 				"WHFramework",
+				"WHFrameworkCore",
 				"DBTween"
 			});
 	}
