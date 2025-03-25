@@ -5,6 +5,7 @@
 #include "Camera/CameraModuleStatics.h"
 #include "Camera/Actor/RoamCameraActor.h"
 #include "Common/CommonStatics.h"
+#include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
 #include "Voxel/VoxelModuleStatics.h"
 #include "Voxel/Voxels/Voxel.h"
@@ -36,6 +37,20 @@ void UVoxelInputManager::OnBindAction(UInputComponentBase* InInputComponent)
 
 	InInputComponent->BindInputAction(GameplayTags::Input_PrevInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::PrevInventoryItem);
 	InInputComponent->BindInputAction(GameplayTags::Input_NextInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::NextInventoryItem);
+}
+
+void UVoxelInputManager::SystemOperation_Implementation()
+{
+	Super::SystemOperation_Implementation();
+
+	if(UInputModuleStatics::GetNativeInputMode() == EInputMode::GameOnly)
+	{
+		UInputModuleStatics::SetNativeInputMode(EInputMode::GameAndUI_NotHideCursor);
+	}
+	else
+	{
+		UInputModuleStatics::SetNativeInputMode(EInputMode::GameOnly);
+	}
 }
 
 void UVoxelInputManager::OnPrimaryPressed()

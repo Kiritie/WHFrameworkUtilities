@@ -23,6 +23,9 @@ public:
 	virtual void OnBindAction(UInputComponentBase* InInputComponent) override;
 
 protected:
+	virtual void SystemOperation_Implementation() override;
+	
+protected:
 	UFUNCTION()
 	virtual void OnPrimaryPressed();
 

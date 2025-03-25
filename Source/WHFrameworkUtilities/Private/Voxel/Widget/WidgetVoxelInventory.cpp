@@ -25,9 +25,12 @@ void UWidgetVoxelInventory::OnCreate(UObject* InOwner, const TArray<FParameter>&
 	Super::OnCreate(InOwner, InParams);
 
 	auto VoxelDatas = UAssetModuleStatics::LoadPrimaryAssets<UVoxelData>(FName("Voxel"));
+	Algo::Sort(VoxelDatas, [](const UVoxelData* A, const UVoxelData* B){
+		return A->VoxelType < B->VoxelType;
+	});
 	for (int32 i = 0; i < VoxelDatas.Num(); i++)
 	{
-		if(!VoxelDatas[i]->IsEmpty() && !VoxelDatas[i]->IsUnknown() && VoxelDatas[i]->IsMainPart())
+		if(!VoxelDatas[i]->IsEmpty() && !VoxelDatas[i]->IsUnknown() && !VoxelDatas[i]->IsCustom() && VoxelDatas[i]->IsMainPart())
 		{
 			VoxelItems.Add(VoxelDatas[i]->VoxelType);
 		}
