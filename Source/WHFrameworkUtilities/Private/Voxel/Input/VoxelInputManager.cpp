@@ -60,7 +60,7 @@ void UVoxelInputManager::OnPrimaryPressed()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Started, VoxelHitResult);
 	}
@@ -73,7 +73,7 @@ void UVoxelInputManager::OnPrimaryRepeated()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
@@ -86,7 +86,7 @@ void UVoxelInputManager::OnPrimaryReleased()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Completed, VoxelHitResult);
 	}
@@ -99,7 +99,7 @@ void UVoxelInputManager::OnSecondaryPressed()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Started, VoxelHitResult);
 	}
@@ -112,7 +112,7 @@ void UVoxelInputManager::OnSecondaryRepeated()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
@@ -125,7 +125,7 @@ void UVoxelInputManager::OnSecondaryReleased()
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 100000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Completed, VoxelHitResult);
 	}
