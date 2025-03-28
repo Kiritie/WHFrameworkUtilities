@@ -15,7 +15,7 @@
 // ParamSets default values
 UVoxelInputManager::UVoxelInputManager()
 {
-	
+	InteractionDistance = 1000.f;
 }
 
 void UVoxelInputManager::OnInitialize()
@@ -26,14 +26,6 @@ void UVoxelInputManager::OnInitialize()
 void UVoxelInputManager::OnBindAction(UInputComponentBase* InInputComponent)
 {
 	Super::OnBindAction(InInputComponent);
-
-	InInputComponent->BindInputAction(GameplayTags::Input_Primary, ETriggerEvent::Started, this, &UVoxelInputManager::OnPrimaryPressed);
-	InInputComponent->BindInputAction(GameplayTags::Input_Primary, ETriggerEvent::Triggered, this, &UVoxelInputManager::OnPrimaryRepeated);
-	InInputComponent->BindInputAction(GameplayTags::Input_Primary, ETriggerEvent::Completed, this, &UVoxelInputManager::OnPrimaryReleased);
-
-	InInputComponent->BindInputAction(GameplayTags::Input_Secondary, ETriggerEvent::Started, this, &UVoxelInputManager::OnSecondaryPressed);
-	InInputComponent->BindInputAction(GameplayTags::Input_Secondary, ETriggerEvent::Triggered, this, &UVoxelInputManager::OnSecondaryRepeated);
-	InInputComponent->BindInputAction(GameplayTags::Input_Secondary, ETriggerEvent::Completed, this, &UVoxelInputManager::OnSecondaryReleased);
 
 	InInputComponent->BindInputAction(GameplayTags::Input_PrevInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::PrevInventoryItem);
 	InInputComponent->BindInputAction(GameplayTags::Input_NextInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::NextInventoryItem);
@@ -53,81 +45,120 @@ void UVoxelInputManager::SystemOperation_Implementation()
 	}
 }
 
-void UVoxelInputManager::OnPrimaryPressed()
+void UVoxelInputManager::OnPrimaryPressed_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 	
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Started, VoxelHitResult);
 	}
 }
 
-void UVoxelInputManager::OnPrimaryRepeated()
+void UVoxelInputManager::OnPrimaryRepeated_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 	
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
 }
 
-void UVoxelInputManager::OnPrimaryReleased()
+void UVoxelInputManager::OnPrimaryReleased_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 	
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Completed, VoxelHitResult);
 	}
 }
 
-void UVoxelInputManager::OnSecondaryPressed()
+void UVoxelInputManager::OnSecondaryPressed_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Started, VoxelHitResult);
 	}
 }
 
-void UVoxelInputManager::OnSecondaryRepeated()
+void UVoxelInputManager::OnSecondaryRepeated_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
 }
 
-void UVoxelInputManager::OnSecondaryReleased()
+void UVoxelInputManager::OnSecondaryReleased_Implementation()
 {
 	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
 
 	if(!RoamCamera) return;
 
 	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, 1000.f, {}, VoxelHitResult))
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
 		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Completed, VoxelHitResult);
+	}
+}
+
+void UVoxelInputManager::OnThirdPressed_Implementation()
+{
+	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
+
+	if(!RoamCamera) return;
+
+	FVoxelHitResult VoxelHitResult;
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	{
+		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Started, VoxelHitResult);
+	}
+}
+
+void UVoxelInputManager::OnThirdRepeated_Implementation()
+{
+	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
+
+	if(!RoamCamera) return;
+
+	FVoxelHitResult VoxelHitResult;
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	{
+		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Triggered, VoxelHitResult);
+	}
+}
+
+void UVoxelInputManager::OnThirdReleased_Implementation()
+{
+	ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>();
+
+	if(!RoamCamera) return;
+
+	FVoxelHitResult VoxelHitResult;
+	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	{
+		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Completed, VoxelHitResult);
 	}
 }
 
@@ -145,10 +176,6 @@ namespace GameplayTags
 {
 	////////////////////////////////////////////////////
 	// Input_Player
-	
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Primary, "Input.Player.Primary", "PrimaryAction");
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Secondary, "Input.Player.Secondary", "Secondary");
-	
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_PrevInventoryItem, "Input.Player.PrevInventoryItem", "Prev Inventory Item");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_NextInventoryItem, "Input.Player.NextInventoryItem", "Next Inventory Item");
 }

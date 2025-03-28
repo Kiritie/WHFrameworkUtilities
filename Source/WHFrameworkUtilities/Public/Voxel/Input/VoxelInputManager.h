@@ -26,38 +26,39 @@ protected:
 	virtual void SystemOperation_Implementation() override;
 	
 protected:
-	UFUNCTION()
-	virtual void OnPrimaryPressed();
+	virtual void OnPrimaryPressed_Implementation() override;
 
-	UFUNCTION()
-	virtual void OnPrimaryRepeated();
+	virtual void OnPrimaryRepeated_Implementation() override;
 
-	UFUNCTION()
-	virtual void OnPrimaryReleased();
+	virtual void OnPrimaryReleased_Implementation() override;
 
-	UFUNCTION()
-	virtual void OnSecondaryPressed();
+	virtual void OnSecondaryPressed_Implementation() override;
 
-	UFUNCTION()
-	virtual void OnSecondaryRepeated();
+	virtual void OnSecondaryRepeated_Implementation() override;
 
-	UFUNCTION()
-	virtual void OnSecondaryReleased();
+	virtual void OnSecondaryReleased_Implementation() override;
+
+	virtual void OnThirdPressed_Implementation() override;
+
+	virtual void OnThirdRepeated_Implementation() override;
+
+	virtual void OnThirdReleased_Implementation() override;
 
 	UFUNCTION()
 	virtual void PrevInventoryItem();
 
 	UFUNCTION()
 	virtual void NextInventoryItem();
+
+protected:
+	UPROPERTY(EditAnywhere)
+	float InteractionDistance;
 };
 
 namespace GameplayTags
 {
 	////////////////////////////////////////////////////
 	// Input_Player
-	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Primary);
-	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Secondary);
-	
 	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_PrevInventoryItem);
 	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_NextInventoryItem);
 };
