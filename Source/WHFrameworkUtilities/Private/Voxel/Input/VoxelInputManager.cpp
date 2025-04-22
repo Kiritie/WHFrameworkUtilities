@@ -8,7 +8,6 @@
 #include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
 #include "Voxel/VoxelModuleStatics.h"
-#include "Voxel/Voxels/Voxel.h"
 #include "Voxel/Widget/WidgetVoxelInventory.h"
 #include "Widget/WidgetModuleStatics.h"
 
@@ -54,7 +53,7 @@ void UVoxelInputManager::OnPrimaryPressed_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Started, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Started, VoxelHitResult);
 	}
 }
 
@@ -67,7 +66,7 @@ void UVoxelInputManager::OnPrimaryRepeated_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Triggered, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
 }
 
@@ -80,7 +79,11 @@ void UVoxelInputManager::OnPrimaryReleased_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Primary, EInputInteractEvent::Completed, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Completed, VoxelHitResult);
+	}
+	else
+	{
+		RoamCamera->UnInteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Completed);
 	}
 }
 
@@ -93,7 +96,7 @@ void UVoxelInputManager::OnSecondaryPressed_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Started, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Started, VoxelHitResult);
 	}
 }
 
@@ -106,7 +109,7 @@ void UVoxelInputManager::OnSecondaryRepeated_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Triggered, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
 }
 
@@ -119,7 +122,11 @@ void UVoxelInputManager::OnSecondaryReleased_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Secondary, EInputInteractEvent::Completed, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Completed, VoxelHitResult);
+	}
+	else
+	{
+		RoamCamera->UnInteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Completed);
 	}
 }
 
@@ -132,7 +139,7 @@ void UVoxelInputManager::OnThirdPressed_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Started, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Started, VoxelHitResult);
 	}
 }
 
@@ -145,7 +152,7 @@ void UVoxelInputManager::OnThirdRepeated_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Triggered, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Triggered, VoxelHitResult);
 	}
 }
 
@@ -158,7 +165,11 @@ void UVoxelInputManager::OnThirdReleased_Implementation()
 	FVoxelHitResult VoxelHitResult;
 	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
 	{
-		VoxelHitResult.GetVoxel().OnAgentInteract(RoamCamera, EInputInteractAction::Third, EInputInteractEvent::Completed, VoxelHitResult);
+		RoamCamera->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Completed, VoxelHitResult);
+	}
+	else
+	{
+		RoamCamera->UnInteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Completed);
 	}
 }
 
