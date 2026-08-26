@@ -42,14 +42,14 @@ protected:
 	UWidgetAbilityItemBase* PreviewItem;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	TArray<FVoxelItem> VoxelItems;
+	TArray<FAbilityItem> VoxelItems;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 SelectedItemIndex;
 
 public:
 	UFUNCTION(BlueprintPure)
-	FVoxelItem GetSelectedItem() const;
+	FAbilityItem GetSelectedItem() const;
 
 	UFUNCTION(BlueprintPure)
 	int32 GetSelectedItemIndex() const { return SelectedItemIndex; }

@@ -32,7 +32,7 @@ void UWidgetVoxelInventory::OnCreate(UObject* InOwner, const TArray<FParameter>&
 	{
 		if(!VoxelDatas[i]->IsEmpty() && !VoxelDatas[i]->IsUnknown() && !VoxelDatas[i]->IsCustom() && VoxelDatas[i]->IsMainPart())
 		{
-			VoxelItems.Add(VoxelDatas[i]->VoxelType);
+			VoxelItems.Add(VoxelDatas[i]->GetPrimaryAssetId());
 		}
 	}
 }
@@ -95,11 +95,11 @@ void UWidgetVoxelInventory::SelectInventoryItem(int32 InItemIndex)
 	}
 }
 
-FVoxelItem UWidgetVoxelInventory::GetSelectedItem() const
+FAbilityItem UWidgetVoxelInventory::GetSelectedItem() const
 {
 	if(VoxelItems.IsValidIndex(SelectedItemIndex))
 	{
 		return VoxelItems[SelectedItemIndex];
 	}
-	return FVoxelItem::Empty;
+	return FAbilityItem::Empty;
 }
