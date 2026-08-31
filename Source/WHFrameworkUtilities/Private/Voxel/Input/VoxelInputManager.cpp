@@ -4,6 +4,7 @@
 
 #include "Camera/CameraModuleStatics.h"
 #include "Camera/Actor/RoamCameraActor.h"
+#include "Character/CharacterModuleStatics.h"
 #include "Common/CommonStatics.h"
 #include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
@@ -28,6 +29,7 @@ void UVoxelInputManager::OnBindAction(UInputComponentBase* InInputComponent)
 
 	InInputComponent->BindInputAction(GameplayTags::Input_PrevInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::PrevInventoryItem);
 	InInputComponent->BindInputAction(GameplayTags::Input_NextInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::NextInventoryItem);
+	InInputComponent->BindInputAction(GameplayTags::Input_SwitchView, ETriggerEvent::Started, this, &UVoxelInputManager::SwitchView);
 }
 
 void UVoxelInputManager::SystemOperation_Implementation()
@@ -183,10 +185,23 @@ void UVoxelInputManager::NextInventoryItem()
 	UWidgetModuleStatics::GetUserWidget<UWidgetVoxelInventory>()->NextInventoryItem();
 }
 
+void UVoxelInputManager::SwitchView()
+{
+	if (!UCharacterModuleStatics::GetCurrentCharacter() && UCharacterModuleStatics::GetAllCharacter().Num() > 0)
+	{
+		UCharacterModuleStatics::SwitchCharacter(UCharacterModuleStatics::GetAllCharacter()[0]);
+	}
+	else
+	{
+		UCharacterModuleStatics::SwitchCharacter(nullptr);
+	}
+}
+
 namespace GameplayTags
 {
 	////////////////////////////////////////////////////
 	// Input_Player
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_PrevInventoryItem, "Input.Player.PrevInventoryItem", "Prev Inventory Item");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_NextInventoryItem, "Input.Player.NextInventoryItem", "Next Inventory Item");
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_SwitchView, "Input.Player.SwitchView", "Switch View");
 }

@@ -50,6 +50,9 @@ protected:
 	UFUNCTION()
 	virtual void NextInventoryItem();
 
+	UFUNCTION()
+	virtual void SwitchView();
+
 protected:
 	UPROPERTY(EditAnywhere)
 	float InteractionDistance;
@@ -61,4 +64,5 @@ namespace GameplayTags
 	// Input_Player
 	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_PrevInventoryItem);
 	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_NextInventoryItem);
+	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_SwitchView);
 };
