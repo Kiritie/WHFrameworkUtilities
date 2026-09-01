@@ -5,7 +5,7 @@
 #include "Camera/CameraModuleStatics.h"
 #include "Camera/Actor/RoamCameraActor.h"
 #include "Character/CharacterModuleStatics.h"
-#include "Common/CommonStatics.h"
+#include "Common/CommonModuleStatics.h"
 #include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
 #include "Voxel/VoxelModuleStatics.h"
