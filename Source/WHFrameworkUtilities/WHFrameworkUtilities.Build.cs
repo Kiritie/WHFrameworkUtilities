@@ -32,5 +32,16 @@ public class WHFrameworkUtilities : ModuleRules
 				"WHFrameworkCore",
 				"DBTween"
 			});
+
+		if (Target.bBuildEditor)
+		{
+			PrivateDependencyModuleNames.AddRange(
+				new string[]
+				{
+					"AssetRegistry",
+					"ContentBrowser",
+					"UnrealEd"
+				});
+		}
 	}
 }

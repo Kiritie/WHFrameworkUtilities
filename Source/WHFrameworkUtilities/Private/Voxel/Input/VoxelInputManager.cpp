@@ -5,6 +5,7 @@
 #include "Camera/CameraModuleStatics.h"
 #include "Camera/Actor/RoamCameraActor.h"
 #include "Character/CharacterModuleStatics.h"
+#include "Character/Base/CharacterBase.h"
 #include "Common/CommonModuleStatics.h"
 #include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
@@ -36,14 +37,7 @@ void UVoxelInputManager::SystemOperation_Implementation()
 {
 	Super::SystemOperation_Implementation();
 
-	if(UInputModuleStatics::GetNativeInputMode() == EInputMode::GameOnly)
-	{
-		UInputModuleStatics::SetNativeInputMode(EInputMode::GameAndUI_NotHideCursor);
-	}
-	else
-	{
-		UInputModuleStatics::SetNativeInputMode(EInputMode::GameOnly);
-	}
+	UInputModuleStatics::SetNativeInputMode(EInputMode::UIOnly);
 }
 
 void UVoxelInputManager::OnPrimaryPressed_Implementation()
@@ -187,13 +181,15 @@ void UVoxelInputManager::NextInventoryItem()
 
 void UVoxelInputManager::SwitchView()
 {
-	if (!UCharacterModuleStatics::GetCurrentCharacter() && UCharacterModuleStatics::GetAllCharacter().Num() > 0)
-	{
-		UCharacterModuleStatics::SwitchCharacter(UCharacterModuleStatics::GetAllCharacter()[0]);
-	}
-	else
+	if (UCharacterModuleStatics::GetCurrentCharacter())
 	{
 		UCharacterModuleStatics::SwitchCharacter(nullptr);
+	}
+	else if (UCharacterModuleStatics::GetAllCharacter().Num() > 0)
+	{
+		ACharacterBase* Character = UCharacterModuleStatics::GetAllCharacter()[0];
+		Character->SetActorLocationAndRotation(UCameraModuleStatics::GetCameraLocation(), FRotator(0.f, UCameraModuleStatics::GetCameraRotation().Yaw, 0.f));
+		UCharacterModuleStatics::SwitchCharacter(Character);
 	}
 }
 
