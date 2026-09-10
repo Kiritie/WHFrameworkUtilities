@@ -86,7 +86,7 @@ void UWidgetVoxelInventory::SelectInventoryItem(int32 InItemIndex)
 
 	if(PreviewItem)
 	{
-		PreviewItem->Init({ &VoxelItems[InItemIndex] });
+		PreviewItem->Init({ VoxelItems[InItemIndex] });
 	}
 
 	if(ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>())
