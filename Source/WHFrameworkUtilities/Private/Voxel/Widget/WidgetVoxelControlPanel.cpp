@@ -27,7 +27,6 @@ const FString DefaultVoxelPrefabPath = TEXT("/WHFramework/Voxel/DataAssets/Prefa
 
 UWidgetVoxelControlPanel::UWidgetVoxelControlPanel(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	WidgetName = FName("VoxelControlPanel");
 
 	Btn_LoadData = nullptr;
 	Btn_SaveData = nullptr;

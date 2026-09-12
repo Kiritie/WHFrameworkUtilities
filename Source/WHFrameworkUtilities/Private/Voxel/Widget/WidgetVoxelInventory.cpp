@@ -10,9 +10,7 @@
 
 UWidgetVoxelInventory::UWidgetVoxelInventory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	WidgetName = FName("VoxelInventory");
 	
-	WidgetCreateType = EWidgetCreateType::AutoCreateAndOpen;
 
 	WidgetZOrder = 2;
 

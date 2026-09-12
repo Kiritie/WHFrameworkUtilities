@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Input/Manager/DefaultInputManagerBase.h"
+#include "Input/Manager/DefaultInputBinding.h"
 #include "Voxel/VoxelModuleTypes.h"
 
 #include "VoxelInputManager.generated.h"
 
 UCLASS()
-class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputManagerBase
+class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding
 {
 	GENERATED_BODY()
 	
@@ -18,9 +18,9 @@ public:
 	UVoxelInputManager();
 	
 public:
-	virtual void OnInitialize() override;
+	virtual void OnInitialize(int32 InPlayerIndex) override;
 
-	virtual void OnBindAction(UInputComponentBase* InInputComponent) override;
+	virtual void OnBindInput(UInputComponentBase* InInputComponent) override;
 
 protected:
 	virtual void SystemOperation_Implementation() override;

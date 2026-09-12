@@ -19,14 +19,14 @@ UVoxelInputManager::UVoxelInputManager()
 	InteractionDistance = 1000.f;
 }
 
-void UVoxelInputManager::OnInitialize()
+void UVoxelInputManager::OnInitialize(int32 InPlayerIndex)
 {
-	Super::OnInitialize();
+	Super::OnInitialize(InPlayerIndex);
 }
 
-void UVoxelInputManager::OnBindAction(UInputComponentBase* InInputComponent)
+void UVoxelInputManager::OnBindInput(UInputComponentBase* InInputComponent)
 {
-	Super::OnBindAction(InInputComponent);
+	Super::OnBindInput(InInputComponent);
 
 	InInputComponent->BindInputAction(GameplayTags::Input_PrevInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::PrevInventoryItem);
 	InInputComponent->BindInputAction(GameplayTags::Input_NextInventoryItem, ETriggerEvent::Started, this, &UVoxelInputManager::NextInventoryItem);
