@@ -37,7 +37,7 @@ void UVoxelInputManager::SystemOperation_Implementation()
 {
 	Super::SystemOperation_Implementation();
 
-	UInputModuleStatics::SetNativeInputMode(EInputMode::UIOnly);
+	UInputModuleStatics::SetDefaultInputMode(EInputMode::UIOnly);
 }
 
 void UVoxelInputManager::OnPrimaryPressed_Implementation()
