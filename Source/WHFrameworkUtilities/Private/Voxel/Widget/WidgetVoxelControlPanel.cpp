@@ -34,9 +34,9 @@ UWidgetVoxelControlPanel::UWidgetVoxelControlPanel(const FObjectInitializer& Obj
 	CurrentPrefabAsset = nullptr;
 }
 
-void UWidgetVoxelControlPanel::OnCreate(UObject* InOwner, const TArray<FParameter>& InParams)
+void UWidgetVoxelControlPanel::OnCreate(const FParameter& InParam)
 {
-	Super::OnCreate(InOwner, InParams);
+	Super::OnCreate(InParam);
 
 	if(Btn_LoadData)
 	{

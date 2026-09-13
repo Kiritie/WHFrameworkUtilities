@@ -12,15 +12,13 @@ UWidgetVoxelInventory::UWidgetVoxelInventory(const FObjectInitializer& ObjectIni
 {
 	
 
-	WidgetZOrder = 2;
-
 	PreviewItem = nullptr;
 	SelectedItemIndex = 0;
 }
 
-void UWidgetVoxelInventory::OnCreate(UObject* InOwner, const TArray<FParameter>& InParams)
+void UWidgetVoxelInventory::OnCreate(const FParameter& InParam)
 {
-	Super::OnCreate(InOwner, InParams);
+	Super::OnCreate(InParam);
 
 	auto VoxelDatas = UAssetModuleStatics::LoadPrimaryAssets<UVoxelData>(FName("Voxel"));
 	Algo::Sort(VoxelDatas, [](const UVoxelData* A, const UVoxelData* B){
@@ -35,9 +33,9 @@ void UWidgetVoxelInventory::OnCreate(UObject* InOwner, const TArray<FParameter>&
 	}
 }
 
-void UWidgetVoxelInventory::OnOpen(const TArray<FParameter>& InParams, bool bInstant)
+void UWidgetVoxelInventory::OnOpen(const FParameter& InParam, bool bInstant)
 {
-	Super::OnOpen(InParams, bInstant);
+	Super::OnOpen(InParam, bInstant);
 
 	SelectInventoryItem(0);
 }
@@ -84,7 +82,7 @@ void UWidgetVoxelInventory::SelectInventoryItem(int32 InItemIndex)
 
 	if(PreviewItem)
 	{
-		PreviewItem->Init({ VoxelItems[InItemIndex] });
+		PreviewItem->Init(FAbilityWidgetSpawnParameter(VoxelItems[InItemIndex]));
 	}
 
 	if(ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>())

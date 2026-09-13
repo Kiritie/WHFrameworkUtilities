@@ -17,7 +17,7 @@ public:
 	UWidgetVoxelControlPanel(const FObjectInitializer& ObjectInitializer);
 
 public:
-	virtual void OnCreate(UObject* InOwner, const TArray<FParameter>& InParams) override;
+	virtual void OnCreate(const FParameter& InParam) override;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Voxel|Prefab")
