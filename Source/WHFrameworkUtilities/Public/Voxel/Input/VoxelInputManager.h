@@ -5,11 +5,12 @@
 #include "CoreMinimal.h"
 #include "Input/Manager/DefaultInputBinding.h"
 #include "Voxel/VoxelModuleTypes.h"
+#include "Voxel/Agent/VoxelAgentInterface.h"
 
 #include "VoxelInputManager.generated.h"
 
 UCLASS()
-class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding
+class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding, public IVoxelAgentInterface
 {
 	GENERATED_BODY()
 	
@@ -53,9 +54,19 @@ protected:
 	UFUNCTION()
 	virtual void SwitchView();
 
+	IVoxelAgentInterface* GetCameraVoxelAgent();
+
 protected:
 	UPROPERTY(EditAnywhere)
 	float InteractionDistance;
+
+	UPROPERTY(Transient)
+	FPrimaryAssetId GenerateVoxelID;
+
+public:
+	virtual FVector GetVoxelAgentLocation() const override;
+	virtual FPrimaryAssetId GetGenerateVoxelID() const override { return GenerateVoxelID; }
+	virtual void SetGenerateVoxelID(const FPrimaryAssetId& InGenerateVoxelID) override { GenerateVoxelID = InGenerateVoxelID; }
 };
 
 namespace GameplayTags

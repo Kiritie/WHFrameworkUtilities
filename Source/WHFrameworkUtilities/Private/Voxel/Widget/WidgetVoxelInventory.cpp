@@ -4,8 +4,6 @@
 
 #include "Ability/Item/Widget/WidgetAbilityItemBase.h"
 #include "Asset/AssetModuleStatics.h"
-#include "Camera/CameraModuleStatics.h"
-#include "Camera/Actor/RoamCameraActor.h"
 #include "Voxel/Voxels/Data/VoxelData.h"
 
 UWidgetVoxelInventory::UWidgetVoxelInventory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -85,10 +83,6 @@ void UWidgetVoxelInventory::SelectInventoryItem(int32 InItemIndex)
 		PreviewItem->Init(FAbilityWidgetSpawnParameter(VoxelItems[InItemIndex]));
 	}
 
-	if(ARoamCameraActor* RoamCamera = UCameraModuleStatics::GetCurrentCamera<ARoamCameraActor>())
-	{
-		RoamCamera->SetGenerateVoxelID(VoxelItems[InItemIndex].ID);
-	}
 }
 
 FAbilityItem UWidgetVoxelInventory::GetSelectedItem() const
