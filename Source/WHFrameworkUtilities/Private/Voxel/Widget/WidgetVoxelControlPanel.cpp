@@ -1,7 +1,9 @@
 #include "Voxel/Widget/WidgetVoxelControlPanel.h"
 
 #include "Camera/Actor/RoamCameraActor.h"
+#include "Camera/CameraModule.h"
 #include "Camera/CameraModuleStatics.h"
+#include "Camera/Manager/CameraManagerBase.h"
 #include "Character/Base/CharacterBase.h"
 #include "Character/CharacterModuleStatics.h"
 #include "Voxel/Prefabs/Data/VoxelPrefabData.h"
@@ -103,7 +105,14 @@ void UWidgetVoxelControlPanel::LoadData()
 			false,
 			nullptr,
 			ETeleportType::TeleportPhysics);
-		UCameraModuleStatics::SetCameraRotation(ViewYaw, 0.f, true);
+		if(ACameraManagerBase* CameraManager = UCameraModule::Get().GetCameraManager())
+		{
+			FCameraViewRequest Request;
+			Request.Properties = static_cast<int32>(ECameraViewProperty::Rotation);
+			Request.Rotation = FRotator(0.f, ViewYaw, 0.f);
+			Request.Transition.Mode = ECameraViewMode::Instant;
+			CameraManager->ApplyView(Request);
+		}
 	}
 	else
 	{
@@ -112,8 +121,15 @@ void UWidgetVoxelControlPanel::LoadData()
 			SafeLocationY,
 			FMath::Max(UCameraModuleStatics::GetCameraLocation().Z, BlockSize.Z * 2.f));
 		const FRotator ViewRotation = (PrefabCenterLocation - SafeLocation).Rotation();
-		UCameraModuleStatics::SetCameraLocation(SafeLocation, true);
-		UCameraModuleStatics::SetCameraRotation(ViewRotation.Yaw, ViewRotation.Pitch, true);
+		if(ACameraManagerBase* CameraManager = UCameraModule::Get().GetCameraManager())
+		{
+			FCameraViewRequest Request;
+			Request.Properties = static_cast<int32>(ECameraViewProperty::Location) | static_cast<int32>(ECameraViewProperty::Rotation);
+			Request.Location = SafeLocation;
+			Request.Rotation = ViewRotation;
+			Request.Transition.Mode = ECameraViewMode::Instant;
+			CameraManager->ApplyView(Request);
+		}
 	}
 	
 	UVoxelModuleStatics::LoadVoxelPrefabData(PrefabData);
