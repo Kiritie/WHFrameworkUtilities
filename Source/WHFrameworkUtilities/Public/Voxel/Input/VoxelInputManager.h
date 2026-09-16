@@ -5,19 +5,18 @@
 #include "CoreMinimal.h"
 #include "Input/Manager/DefaultInputBinding.h"
 #include "Voxel/VoxelModuleTypes.h"
-#include "Voxel/Agent/VoxelAgentInterface.h"
 
 #include "VoxelInputManager.generated.h"
 
 UCLASS()
-class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding, public IVoxelAgentInterface
+class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// ParamSets default values for this actor's properties
 	UVoxelInputManager();
-	
+
 public:
 	virtual void OnInitialize(int32 InPlayerIndex) override;
 
@@ -25,7 +24,7 @@ public:
 
 protected:
 	virtual void SystemOperation_Implementation() override;
-	
+
 protected:
 	virtual void OnPrimaryPressed_Implementation() override;
 
@@ -54,26 +53,18 @@ protected:
 	UFUNCTION()
 	virtual void SwitchView();
 
-	IVoxelAgentInterface* GetCameraVoxelAgent();
+	class UVoxelAgentComponent* GetVoxelAgentComponent() const;
 
 protected:
 	UPROPERTY(EditAnywhere)
 	float InteractionDistance;
-
-	UPROPERTY(Transient)
-	FPrimaryAssetId GenerateVoxelID;
-
-public:
-	virtual FVector GetVoxelAgentLocation() const override;
-	virtual FPrimaryAssetId GetGenerateVoxelID() const override { return GenerateVoxelID; }
-	virtual void SetGenerateVoxelID(const FPrimaryAssetId& InGenerateVoxelID) override { GenerateVoxelID = InGenerateVoxelID; }
 };
 
 namespace GameplayTags
 {
-	////////////////////////////////////////////////////
-	// Input_Player
-	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_PrevInventoryItem);
-	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_NextInventoryItem);
-	WHFRAMEWORKUTILITIES_API	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_SwitchView);
+////////////////////////////////////////////////////
+// Input_Player
+WHFRAMEWORKUTILITIES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_PrevInventoryItem);
+WHFRAMEWORKUTILITIES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_NextInventoryItem);
+WHFRAMEWORKUTILITIES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_SwitchView);
 };

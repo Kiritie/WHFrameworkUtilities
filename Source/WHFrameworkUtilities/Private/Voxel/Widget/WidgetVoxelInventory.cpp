@@ -6,10 +6,9 @@
 #include "Asset/AssetModuleStatics.h"
 #include "Voxel/Voxels/Data/VoxelData.h"
 
-UWidgetVoxelInventory::UWidgetVoxelInventory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UWidgetVoxelInventory::UWidgetVoxelInventory(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
 {
-	
-
 	PreviewItem = nullptr;
 	SelectedItemIndex = 0;
 }
@@ -19,12 +18,14 @@ void UWidgetVoxelInventory::OnCreate(const FParameter& InParam)
 	Super::OnCreate(InParam);
 
 	auto VoxelDatas = UAssetModuleStatics::LoadPrimaryAssets<UVoxelData>(FName("Voxel"));
-	Algo::Sort(VoxelDatas, [](const UVoxelData* A, const UVoxelData* B){
-		return A->VoxelType < B->VoxelType;
-	});
+	Algo::Sort(VoxelDatas,
+	           [](const UVoxelData* A, const UVoxelData* B)
+	           {
+		           return A->BlockName.LexicalLess(B->BlockName);
+	           });
 	for (int32 i = 0; i < VoxelDatas.Num(); i++)
 	{
-		if(!VoxelDatas[i]->IsEmpty() && !VoxelDatas[i]->IsUnknown() && !VoxelDatas[i]->IsCustom() && VoxelDatas[i]->IsMainPart())
+		if (VoxelDatas[i]->bRegisterBlock)
 		{
 			VoxelItems.Add(VoxelDatas[i]->GetPrimaryAssetId());
 		}
@@ -50,7 +51,7 @@ void UWidgetVoxelInventory::OnRefresh()
 
 void UWidgetVoxelInventory::PrevInventoryItem()
 {
-	if(SelectedItemIndex > 0)
+	if (SelectedItemIndex > 0)
 	{
 		SelectInventoryItem(SelectedItemIndex - 1);
 	}
@@ -74,20 +75,20 @@ void UWidgetVoxelInventory::NextInventoryItem()
 
 void UWidgetVoxelInventory::SelectInventoryItem(int32 InItemIndex)
 {
-	if(!VoxelItems.IsValidIndex(InItemIndex)) return;
+	if (!VoxelItems.IsValidIndex(InItemIndex))
+		return;
 
 	SelectedItemIndex = InItemIndex;
 
-	if(PreviewItem)
+	if (PreviewItem)
 	{
 		PreviewItem->Init(FAbilityWidgetSpawnParameter(VoxelItems[InItemIndex]));
 	}
-
 }
 
 FAbilityItem UWidgetVoxelInventory::GetSelectedItem() const
 {
-	if(VoxelItems.IsValidIndex(SelectedItemIndex))
+	if (VoxelItems.IsValidIndex(SelectedItemIndex))
 	{
 		return VoxelItems[SelectedItemIndex];
 	}

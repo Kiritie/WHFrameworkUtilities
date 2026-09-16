@@ -9,6 +9,7 @@
 #include "Input/InputModuleStatics.h"
 #include "Input/Components/InputComponentBase.h"
 #include "Voxel/VoxelModuleStatics.h"
+#include "Voxel/Agent/VoxelAgentComponent.h"
 #include "Voxel/Widget/WidgetVoxelInventory.h"
 #include "Widget/WidgetModuleStatics.h"
 
@@ -41,112 +42,53 @@ void UVoxelInputManager::SystemOperation_Implementation()
 
 void UVoxelInputManager::OnPrimaryPressed_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-	
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	if (UVoxelAgentComponent* Agent = GetVoxelAgentComponent())
 	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Started, VoxelHitResult);
+		Agent->BeginBreak();
 	}
 }
 
 void UVoxelInputManager::OnPrimaryRepeated_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-	
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
-	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Triggered, VoxelHitResult);
-	}
 }
 
 void UVoxelInputManager::OnPrimaryReleased_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-	
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	if (UVoxelAgentComponent* Agent = GetVoxelAgentComponent())
 	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Completed, VoxelHitResult);
-	}
-	else
-	{
-		CameraAgent->UnInteractVoxel(EInputInteractAction::Primary, EInputInteractEvent::Completed);
+		Agent->EndBreak();
 	}
 }
 
 void UVoxelInputManager::OnSecondaryPressed_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
-	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Started, VoxelHitResult);
-	}
 }
 
 void UVoxelInputManager::OnSecondaryRepeated_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
-	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Triggered, VoxelHitResult);
-	}
 }
 
 void UVoxelInputManager::OnSecondaryReleased_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	if (UVoxelAgentComponent* Agent = GetVoxelAgentComponent())
 	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Completed, VoxelHitResult);
-	}
-	else
-	{
-		CameraAgent->UnInteractVoxel(EInputInteractAction::Secondary, EInputInteractEvent::Completed);
+		Agent->PlaceSelected();
 	}
 }
 
 void UVoxelInputManager::OnThirdPressed_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
-	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Started, VoxelHitResult);
-	}
 }
 
 void UVoxelInputManager::OnThirdRepeated_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
-	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Triggered, VoxelHitResult);
-	}
 }
 
 void UVoxelInputManager::OnThirdReleased_Implementation()
 {
-	IVoxelAgentInterface* CameraAgent = GetCameraVoxelAgent();
-
-	FVoxelHitResult VoxelHitResult;
-	if(UVoxelModuleStatics::VoxelRaycastSinge(EVoxelRaycastType::FromAimPoint, InteractionDistance, {}, VoxelHitResult))
+	if (UVoxelAgentComponent* Agent = GetVoxelAgentComponent())
 	{
-		CameraAgent->InteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Completed, VoxelHitResult);
-	}
-	else
-	{
-		CameraAgent->UnInteractVoxel(EInputInteractAction::Third, EInputInteractEvent::Completed);
+		Agent->UseTarget();
 	}
 }
 
@@ -175,25 +117,17 @@ void UVoxelInputManager::SwitchView()
 	}
 }
 
-IVoxelAgentInterface* UVoxelInputManager::GetCameraVoxelAgent()
+UVoxelAgentComponent* UVoxelInputManager::GetVoxelAgentComponent() const
 {
-	if(UWidgetVoxelInventory* Inventory = UWidgetModuleStatics::GetUserWidget<UWidgetVoxelInventory>())
-	{
-		SetGenerateVoxelID(Inventory->GetSelectedItem().ID);
-	}
-	return this;
-}
-
-FVector UVoxelInputManager::GetVoxelAgentLocation() const
-{
-	return UCameraModuleStatics::GetViewLocation(LocalPlayerIndex);
+	ACharacterBase* Character = UCharacterModuleStatics::GetCurrentCharacter();
+	return Character ? Character->GetVoxelAgentComponent() : nullptr;
 }
 
 namespace GameplayTags
 {
-	////////////////////////////////////////////////////
-	// Input_Player
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_PrevInventoryItem, "Input.Player.PrevInventoryItem", "Prev Inventory Item");
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_NextInventoryItem, "Input.Player.NextInventoryItem", "Next Inventory Item");
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_SwitchView, "Input.Player.SwitchView", "Switch View");
+////////////////////////////////////////////////////
+// Input_Player
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_PrevInventoryItem, "Input.Player.PrevInventoryItem", "Prev Inventory Item");
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_NextInventoryItem, "Input.Player.NextInventoryItem", "Next Inventory Item");
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_SwitchView, "Input.Player.SwitchView", "Switch View");
 }
