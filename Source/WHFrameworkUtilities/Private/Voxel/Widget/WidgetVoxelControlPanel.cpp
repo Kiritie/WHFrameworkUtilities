@@ -135,7 +135,7 @@ void UWidgetVoxelControlPanel::ResetData()
 #if WITH_EDITOR
 bool UWidgetVoxelControlPanel::CanAccessPrefabWorld() const
 {
-	if (!UVoxelModule::IsValid() || UVoxelModule::Get().GetWorldMode() != EVoxelWorldMode::Prefab || !UVoxelModule::Get().IsReady())
+	if (!UVoxelModule::IsValid() || !UVoxelModule::Get().IsReady())
 	{
 		ShowNotification(LOCTEXT("WorldNotReady", "Prefab 世界尚未准备完成。"), false);
 		return false;
