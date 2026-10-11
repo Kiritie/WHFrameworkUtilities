@@ -92,5 +92,5 @@ FAbilityItem UWidgetVoxelInventory::GetSelectedItem() const
 	{
 		return VoxelItems[SelectedItemIndex];
 	}
-	return FAbilityItem::Empty;
+	return FAbilityItem();
 }
