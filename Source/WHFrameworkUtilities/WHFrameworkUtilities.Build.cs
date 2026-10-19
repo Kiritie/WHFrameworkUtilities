@@ -13,7 +13,14 @@ public class WHFrameworkUtilities : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core"
+				"Core",
+				"CoreUObject",
+				"Engine",
+				"UMG",
+				"CommonUI",
+				"GameplayTags",
+				"WHFramework",
+				"WHFrameworkCore"
 			});
 			
 		
@@ -25,6 +32,7 @@ public class WHFrameworkUtilities : ModuleRules
 				"UMG",
 				"Slate",
 				"SlateCore",
+				"InputCore",
 				"CommonUI",
 				"GameplayTags",
 				"EnhancedInput",
