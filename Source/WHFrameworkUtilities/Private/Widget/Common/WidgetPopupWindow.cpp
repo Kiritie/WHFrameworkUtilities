@@ -63,12 +63,16 @@ void UWidgetPopupWindow::OnDestroy(EObjectDespawnMode InMode)
 void UWidgetPopupWindow::NativeConstruct()
 {
 	Super::NativeConstruct();
+	Window_Content->OnCloseRequested.AddUniqueDynamic(this, &ThisClass::Cancel);
+	Btn_Confirm->OnClicked().RemoveAll(this);
+	Btn_Cancel->OnClicked().RemoveAll(this);
 	Btn_Confirm->OnClicked().AddUObject(this, &ThisClass::Confirm);
 	Btn_Cancel->OnClicked().AddUObject(this, &ThisClass::Cancel);
 }
 
 void UWidgetPopupWindow::NativeDestruct()
 {
+	Window_Content->OnCloseRequested.RemoveDynamic(this, &ThisClass::Cancel);
 	Btn_Confirm->OnClicked().RemoveAll(this);
 	Btn_Cancel->OnClicked().RemoveAll(this);
 	if (!bResolved)

@@ -101,6 +101,7 @@ protected:
 
 private:
 	void Confirm();
+	UFUNCTION()
 	void Cancel();
 	void Resolve(bool bConfirmed);
 	bool bResolved = true;
