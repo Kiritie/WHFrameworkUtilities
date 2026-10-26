@@ -25,6 +25,10 @@ void UWidgetPopupWindow::OnOpen(const FParameter& InParam, bool bInstant)
 	ConfirmTrigger = Parameter.ConfirmTrigger;
 	CancelTrigger = Parameter.CancelTrigger;
 	Btn_Confirm->SetIsEnabled(true);
+	Btn_Confirm->SetStyleTag(FGameplayTag::RequestGameplayTag(Parameter.bDestructive
+		? TEXT("UI.Style.Button.Dialog.Destructive") : TEXT("UI.Style.Button.Dialog.Primary")));
+	Btn_Cancel->SetStyleTag(FGameplayTag::RequestGameplayTag(Parameter.bDestructive
+		? TEXT("UI.Style.Button.Dialog.Primary") : TEXT("UI.Style.Button.Dialog.Secondary")));
 	Window_Content->SetTitle(Parameter.Title);
 	SetText(Parameter.Text);
 	Btn_Confirm->SetTitle(Parameter.ConfirmText.IsEmpty() ? NSLOCTEXT("WH.Popup", "Confirm", "确认") : Parameter.ConfirmText);

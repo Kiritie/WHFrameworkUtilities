@@ -33,6 +33,9 @@ struct WHFRAMEWORKUTILITIES_API FWidgetPopupWindowOpenParameter : public FWidget
 	bool bShowCancel = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bDestructive = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FSimpleDynamicDelegate ConfirmTrigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
