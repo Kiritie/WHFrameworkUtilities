@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Voxel/Widget/WidgetVoxelInventory.h"
+#include "Ability/AbilityWidgetTypes.h"
+#include "Ability/Inventory/InventoryItemTypes.h"
 
 #include "Ability/Item/Widget/WidgetAbilityItemBase.h"
 #include "Asset/AssetModuleStatics.h"

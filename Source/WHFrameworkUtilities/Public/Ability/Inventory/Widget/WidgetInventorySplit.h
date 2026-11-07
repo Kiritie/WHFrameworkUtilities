@@ -2,6 +2,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Widget/WidgetModuleTypes.h"
+#include "Widget/ScreenWidgetTypes.h"
 #include "WidgetInventorySplit.generated.h"
 
 class UCommonRange;

@@ -59,10 +59,9 @@ void UWidgetSettingPanel::RefreshConfirmation()
 		Parameter.ConfirmTrigger.BindDynamic(this, &ThisClass::OnConfirmed);
 		Parameter.CancelTrigger.BindDynamic(this, &ThisClass::OnCancelled);
 		Parameter.OwnerObject = this;
-		const FScopedWorldContext WorldContext(GetWorld());
 		const TSubclassOf<UUserWidgetBase> ConfiguredClass = PopupWindowClass ? PopupWindowClass.Get() : UWidgetPopupWindow::StaticClass();
-		ConfirmationWindow = UWidgetModuleStatics::OpenUserWidget(ConfiguredClass, FParameter(Parameter), true, true)
-			? Cast<UWidgetPopupWindow>(UWidgetModuleStatics::GetUserWidget(ConfiguredClass)) : nullptr;
+		ConfirmationWindow = UWidgetModuleStatics::OpenUserWidget(GetOwningPlayer(), ConfiguredClass, FParameter(Parameter), true, true)
+			? Cast<UWidgetPopupWindow>(UWidgetModuleStatics::GetUserWidget(GetOwningPlayer(), ConfiguredClass)) : nullptr;
 		if (!ConfirmationWindow)
 		{
 			RejectPendingSettings();

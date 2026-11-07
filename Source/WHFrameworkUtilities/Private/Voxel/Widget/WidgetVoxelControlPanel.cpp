@@ -77,7 +77,8 @@ void UWidgetVoxelControlPanel::LoadData()
 
 	UVoxelPrefabData* PrefabAsset = Cast<UVoxelPrefabData>(SelectedAssets[0].GetAsset());
 	FString Error;
-	if (!IsValid(PrefabAsset) || !UVoxelModule::Get().ApplyPrefab(PrefabAsset->Data, FIntVector::ZeroValue, Error))
+	UVoxelModule* Voxel = UVoxelModule::GetPtr(GetWorld());
+	if (!IsValid(PrefabAsset) || !Voxel || !Voxel->IsReady() || !Voxel->ApplyPrefab(PrefabAsset->Data, FIntVector::ZeroValue, Error))
 	{
 		ShowNotification(FText::FromString(Error.IsEmpty() ? TEXT("无法加载 VoxelPrefab。") : Error), false);
 		return;
@@ -99,7 +100,8 @@ void UWidgetVoxelControlPanel::SaveData()
 	const FBox Bounds = CurrentPrefabAsset->GetVoxelBounds();
 	FVoxelPrefabSaveData PrefabData;
 	FString Error;
-	if (!Bounds.IsValid || !UVoxelModule::Get().ExportPrefab(FIntVector(Bounds.Min), FIntVector(Bounds.Max) - FIntVector(1, 1, 1), PrefabData, Error))
+	UVoxelModule* Voxel = UVoxelModule::GetPtr(GetWorld());
+	if (!Bounds.IsValid || !Voxel || !Voxel->IsReady() || !Voxel->ExportPrefab(FIntVector(Bounds.Min), FIntVector(Bounds.Max) - FIntVector(1, 1, 1), PrefabData, Error))
 	{
 		ShowNotification(FText::FromString(Error.IsEmpty() ? TEXT("无法导出 VoxelPrefab。") : Error), false);
 		return;
@@ -135,7 +137,8 @@ void UWidgetVoxelControlPanel::ResetData()
 #if WITH_EDITOR
 bool UWidgetVoxelControlPanel::CanAccessPrefabWorld() const
 {
-	if (!UVoxelModule::IsValid() || !UVoxelModule::Get().IsReady())
+	const UVoxelModule* Voxel = UVoxelModule::GetPtr(GetWorld());
+	if (!Voxel || !Voxel->IsReady())
 	{
 		ShowNotification(LOCTEXT("WorldNotReady", "Prefab 世界尚未准备完成。"), false);
 		return false;

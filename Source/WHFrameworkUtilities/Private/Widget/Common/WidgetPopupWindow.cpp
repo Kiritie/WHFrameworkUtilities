@@ -117,7 +117,6 @@ void UWidgetPopupWindow::Cancel()
 
 void UWidgetPopupWindow::Resolve(bool bConfirmed)
 {
-	const FScopedWorldContext WorldContext(GetWorld());
 	if (bResolved)
 	{
 		return;
@@ -135,7 +134,6 @@ void UWidgetPopupWindow::Resolve(bool bConfirmed)
 
 void UWidgetPopupWindow::Dismiss()
 {
-	const FScopedWorldContext WorldContext(GetWorld());
 	bResolved = true;
 	ConfirmTrigger.Unbind();
 	CancelTrigger.Unbind();

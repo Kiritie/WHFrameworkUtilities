@@ -20,7 +20,8 @@ public class WHFrameworkUtilities : ModuleRules
 				"CommonUI",
 				"GameplayTags",
 				"WHFramework",
-				"WHFrameworkCore"
+				"WHFrameworkCore",
+				"DBTween"
 			});
 			
 		
@@ -37,8 +38,7 @@ public class WHFrameworkUtilities : ModuleRules
 				"GameplayTags",
 				"EnhancedInput",
 				"WHFramework",
-				"WHFrameworkCore",
-				"DBTween"
+				"WHFrameworkCore"
 			});
 
 		if (Target.bBuildEditor)

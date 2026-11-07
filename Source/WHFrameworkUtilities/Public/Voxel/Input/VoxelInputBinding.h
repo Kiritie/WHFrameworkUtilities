@@ -3,23 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "NativeGameplayTags.h"
 #include "Input/Manager/DefaultInputBinding.h"
 #include "Voxel/VoxelModuleTypes.h"
 
-#include "VoxelInputManager.generated.h"
+#include "VoxelInputBinding.generated.h"
 
 UCLASS()
-class WHFRAMEWORKUTILITIES_API UVoxelInputManager : public UDefaultInputBinding
+class WHFRAMEWORKUTILITIES_API UVoxelInputBinding : public UDefaultInputBinding
 {
 	GENERATED_BODY()
 
 public:
 	// ParamSets default values for this actor's properties
-	UVoxelInputManager();
+	UVoxelInputBinding();
 
 public:
-	virtual void OnInitialize(int32 InPlayerIndex) override;
-
 	virtual void OnBindInput(UInputComponentBase* InInputComponent) override;
 
 protected:
